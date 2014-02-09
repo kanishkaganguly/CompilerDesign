@@ -1,0 +1,5 @@
+	 1: declaration_specifiers : type_specifier
+	 1: declaration : declaration_specifiers init_declarator_list ;
+	 1: external_declaration : declaration
+	 1: translation_unit : external_declaration
+Error in line 2

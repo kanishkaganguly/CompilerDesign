@@ -1,7 +1,7 @@
-D			[0-9]
-L			[a-zA-Z_]
-H			[a-fA-F0-9]
-E			[Ee][+-]?{D}+
+DIG			[0-9]
+LETTERS		[a-zA-Z_]
+HEX			[a-fA-F0-9]
+EXP			[Ee][+-]?{DIG}+
 FS			(f|F|l|L)
 IS			(u|U|l|L)*
 
@@ -45,18 +45,18 @@ int lineno = 1;
 "volatile"		return(VOLATILE);
 "while"			return(WHILE);
 
-{L}({L}|{D})*		return(check_type());
+{LETTERS}({LETTERS}|{DIG})*		return(check_type());
 
-0[xX]{H}+{IS}?		return(CONSTANT);
-0{D}+{IS}?			return(CONSTANT);
-{D}+{IS}?			return(CONSTANT); 
-L?'(\\.|[^\\'])+' 	return(CONSTANT);
+0[xX]{HEX}+{IS}?		return(CONSTANT);
+0{DIG}+{IS}?			return(CONSTANT);
+{DIG}+{IS}?			return(CONSTANT); 
+LETTERS?'(\\.|[^\\'])+' 	return(CONSTANT);
 
-{D}+{E}{FS}?			return(CONSTANT);
-{D}*"."{D}+({E})?{FS}?	return(CONSTANT);
-{D}+"."{D}*({E})?{FS}?	return(CONSTANT);
+{DIG}+{EXP}{FS}?			return(CONSTANT);
+{DIG}*"."{DIG}+({EXP})?{FS}?	return(CONSTANT);
+{DIG}+"."{DIG}*({EXP})?{FS}?	return(CONSTANT);
 
-L?\"(\\.|[^\\"])*\"	return(STRING_LITERAL);
+LETTERS?\"(\\.|[^\\"])*\"	return(STRING_LITERAL);
 
 "..."			return(ELLIPSIS);
 ">>="			return(RIGHT_ASSIGN);
@@ -106,7 +106,7 @@ L?\"(\\.|[^\\"])*\"	return(STRING_LITERAL);
 "?"				return('?');
 [\n]			return lineno++;
 [\t\v\f]		{ }
-.			{ /* ignore bad characters */ }
+.			    { /* ignore bad characters */ }
 
 %%
 

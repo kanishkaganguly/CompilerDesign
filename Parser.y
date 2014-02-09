@@ -123,99 +123,99 @@ logical_or_expression
 	;
 
 conditional_expression
-	: logical_or_expression
-	| logical_or_expression '?' expression ':' conditional_expression
+	: logical_or_expression { printf("\t %d: conditional_expression : logical_or_expression\n",lineno); }
+	| logical_or_expression '?' expression ':' conditional_expression { printf("\t %d: conditional_expression : logical_or_expression ? expression : conditional_expression\n",lineno); }
 	;
 
-assignment_expression
-	: conditional_expression
-	| unary_expression assignment_operator assignment_expression
+assignment_expression 
+	: conditional_expression { printf("\t %d: assignment_expression : conditional_expression\n",lineno); }
+	| unary_expression assignment_operator assignment_expression { printf("\t %d: assignment_expression : unary_expression assignment_expression assignment_expression\n",lineno); }
 	;
 
 assignment_operator
-	: '='
-	| MUL_ASSIGN
-	| DIV_ASSIGN
-	| MOD_ASSIGN
-	| ADD_ASSIGN
-	| SUB_ASSIGN
-	| LEFT_ASSIGN
-	| RIGHT_ASSIGN
-	| AND_ASSIGN
-	| XOR_ASSIGN
-	| OR_ASSIGN
+	: '=' { printf("\t %d: assignment_operator : =\n",lineno); }
+	| MUL_ASSIGN { printf("\t %d: assignment_operator : MUL_ASSIGN\n",lineno); }
+	| DIV_ASSIGN { printf("\t %d: assignment_operator : DIV_ASSIGN\n",lineno); }
+	| MOD_ASSIGN { printf("\t %d: assignment_operator : MOD_ASSIGN\n",lineno); }
+	| ADD_ASSIGN { printf("\t %d: assignment_operator : ADD_ASSIGN\n",lineno); }
+	| SUB_ASSIGN { printf("\t %d: assignment_operator : SUB_ASSIGN\n",lineno); }
+	| LEFT_ASSIGN { printf("\t %d: assignment_operator : LEFT_ASSIGN\n",lineno); }
+	| RIGHT_ASSIGN { printf("\t %d: assignment_operator : RIGHT_ASSIGN\n",lineno); }
+	| AND_ASSIGN { printf("\t %d: assignment_operator : AND_ASSIGN\n",lineno); }
+	| XOR_ASSIGN { printf("\t %d: assignment_operator : XOR_ASSIGN\n",lineno); }
+	| OR_ASSIGN { printf("\t %d: assignment_operator : OR_ASSIGN\n",lineno); }
 	;
 
 expression
-	: assignment_expression
-	| expression ',' assignment_expression
+	: assignment_expression { printf("\t %d: expression : assignment_expression\n",lineno); }
+	| expression ',' assignment_expression { printf("\t %d: expression : expression , assignment_expression\n",lineno); }
 	;
 
 constant_expression
-	: conditional_expression
+	: conditional_expression { printf("\t %d: constant_expression : conditional_expression\n",lineno); }
 	;
 
 declaration
-	: declaration_specifiers ';'
-	| declaration_specifiers init_declarator_list ';'
+	: declaration_specifiers ';' { printf("\t %d: declaration : declaration_specifiers;\n",lineno); }
+	| declaration_specifiers init_declarator_list ';' { printf("\t %d: declaration : declaration_specifiers init_declarator_list ;\n",lineno); }
 	;
 
 declaration_specifiers
-	: storage_class_specifier
-	| storage_class_specifier declaration_specifiers
-	| type_specifier
-	| type_specifier declaration_specifiers
-	| type_qualifier
-	| type_qualifier declaration_specifiers
+	: storage_class_specifier { printf("\t %d: declaration_specifiers : storage_class_specifier\n",lineno); }
+	| storage_class_specifier declaration_specifiers { printf("\t %d: declaration_specifiers : storage_class_specifier declaration_specifiers\n",lineno); }
+	| type_specifier { printf("\t %d: declaration_specifiers : type_specifier\n",lineno); }
+	| type_specifier declaration_specifiers { printf("\t %d: declaration_specifiers : type_specifier declaration_specifier\n",lineno); }
+	| type_qualifier { printf("\t %d: declaration_specifiers : type_qualifier\n",lineno); }
+	| type_qualifier declaration_specifiers { printf("\t %d: declaration_specifiers : type_qualifier declaration_specifiers\n",lineno); }
 	;
 
-init_declarator_list
-	: init_declarator
-	| init_declarator_list ',' init_declarator
+init_declarator_list 
+	: init_declarator { printf("\t %d: init_declarator_list : init_declarator\n",lineno); }
+	| init_declarator_list ',' init_declarator { printf("\t %d: init_declarator_list : init_declarator_list , init_declarator\n",lineno); }
 	;
 
 init_declarator
-	: declarator
-	| declarator '=' initializer
+	: declarator { printf("\t %d: init_declarator : declarator\n",lineno); }
+	| declarator '=' initializer { printf("\t %d: init_declarator_list : declarator = initializer\n",lineno); }
 	;
 
-storage_class_specifier
-	: TYPEDEF
-	| EXTERN
-	| STATIC
-	| AUTO
-	| REGISTER
+storage_class_specifier 
+	: TYPEDEF { printf("\t %d: storage_class_specifier : TYPEDEF\n",lineno); }
+	| EXTERN { printf("\t %d: storage_class_specifier : EXTERN\n",lineno); }
+	| STATIC { printf("\t %d: storage_class_specifier : STATIC\n",lineno); }
+	| AUTO { printf("\t %d: storage_class_specifier : AUTO\n",lineno); }
+	| REGISTER { printf("\t %d: storage_class_specifier : REGISTER\n",lineno); }
 	;
 
 type_specifier
-	: VOID
-	| CHAR
-	| SHORT
-	| INT
-	| LONG
-	| FLOAT
-	| DOUBLE
-	| SIGNED
-	| UNSIGNED
-	| struct_or_union_specifier
-	| enum_specifier
-	| TYPE_NAME
+	: VOID { printf("\t %d: type_specifier : VOID\n",lineno); }
+	| CHAR { printf("\t %d: type_specifier : CHAR\n",lineno); }
+	| SHORT { printf("\t %d: type_specifier : SHORT\n",lineno); }
+	| INT { printf("\t %d: type_specifier : INT\n",lineno); }
+	| LONG { printf("\t %d: type_specifier : LONG\n",lineno); }
+	| FLOAT { printf("\t %d: type_specifier : FLOAT\n",lineno); }
+	| DOUBLE { printf("\t %d: type_specifier : DOUBLE\n",lineno); }
+	| SIGNED { printf("\t %d: type_specifier : SIGNED\n",lineno); }
+	| UNSIGNED { printf("\t %d: type_specifier : UNSIGNED\n",lineno); }
+	| struct_or_union_specifier { printf("\t %d: type_specifier : struct_or_union_specifier\n",lineno); }
+	| enum_specifier { printf("\t %d: type_specifier : enum_specifier\n",lineno); }
+	| TYPE_NAME { printf("\t %d: type_specifier : TYPE_NAME\n",lineno); }
 	;
 
 struct_or_union_specifier
-	: struct_or_union IDENTIFIER '{' struct_declaration_list '}'
-	| struct_or_union '{' struct_declaration_list '}'
-	| struct_or_union IDENTIFIER
+	: struct_or_union IDENTIFIER '{' struct_declaration_list '}' { printf("\t %d: struct_or_union_specifier : struct_or_union IDENTIFIER {struct_declaration_list}\n",lineno); }
+	| struct_or_union '{' struct_declaration_list '}' { printf("\t %d: struct_or_union_specifier : struct_or_union {struct_declaration_list}\n",lineno); }
+	| struct_or_union IDENTIFIER { printf("\t %d: struct_or_union_specifier : struct_or_union IDENTIFIER\n",lineno); }
 	;
 
-struct_or_union
-	: STRUCT
-	| UNION
+struct_or_union 
+	: STRUCT { printf("\t %d: struct_or_union : STRUCT\n",lineno); }
+	| UNION  { printf("\t %d: struct_or_union : UNION\n",lineno); }
 	;
 
-struct_declaration_list
-	: struct_declaration
-	| struct_declaration_list struct_declaration
+struct_declaration_list 
+	: struct_declaration { printf("\t %d: struct_declaration_list : struct_declaration\n",lineno); }
+	| struct_declaration_list struct_declaration { printf("\t %d: struct_declaration_list : struct_declaration_list struct_declaration\n",lineno); }
 	;
 
 struct_declaration
@@ -322,15 +322,15 @@ abstract_declarator
 	;
 
 direct_abstract_declarator
-	: '(' abstract_declarator ')'
-	| '[' ']'
-	| '[' constant_expression ']'
-	| direct_abstract_declarator '[' ']'
-	| direct_abstract_declarator '[' constant_expression ']'
-	| '(' ')'
-	| '(' parameter_type_list ')'
-	| direct_abstract_declarator '(' ')'
-	| direct_abstract_declarator '(' parameter_type_list ')'
+	: '(' abstract_declarator ')'  { printf("\t %d: direct_abstract_declarator : (abstract_declarator) \n",lineno); }
+	| '[' ']'					   { printf("\t %d: direct_abstract_declarator : [] \n",lineno); }
+	| '[' constant_expression ']'  { printf("\t %d: direct_abstract_declarator : [constant_expression] \n",lineno); }
+	| direct_abstract_declarator '[' ']' { printf("\t %d: direct_abstract_declarator : direct_abstract_declarator [] \n",lineno); }
+	| direct_abstract_declarator '[' constant_expression ']' { printf("\t %d: direct_abstract_declarator : direct_abstract_declarator [constant_expression] \n",lineno); }
+	| '(' ')' { printf("\t %d: direct_abstract_declarator : () \n",lineno); }
+	| '(' parameter_type_list ')' { printf("\t %d: direct_abstract_declarator : (parameter_type_list) \n",lineno); }
+	| direct_abstract_declarator '(' ')' { printf("\t %d: direct_abstract_declarator : direct_abstract_declarator() \n",lineno); }
+	| direct_abstract_declarator '(' parameter_type_list ')' { printf("\t %d: direct_abstract_declarator : direct_abstract_declarator (parameter_type_list) \n",lineno); }
 	;
 
 initializer
